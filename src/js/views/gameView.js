@@ -1,0 +1,3 @@
+/*in charge of changing the view for all clients 
+that joined the server
+*/

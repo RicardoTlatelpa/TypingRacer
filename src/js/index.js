@@ -1,1 +1,2 @@
-console.log('hello world!');
+//Controller
+require('../sass/main.scss');
