@@ -6,24 +6,33 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
+    "start": "webpack-dev-server --mode development --open",
+    "server": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
+    "autoprefixer": "^9.8.5",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
     "css-loader": "^3.6.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "extract-loader": "^5.1.0",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "install": "^0.13.0",
+    "jsonwebtoken": "^8.5.1",
     "mini-css-extract-plugin": "^0.9.0",
     "mongoose": "^5.9.25",
     "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
     "npm": "^6.14.6",
+    "passport": "^0.4.1",
+    "postcss-loader": "^3.0.0",
     "sass-loader": "^9.0.2",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
@@ -31,6 +40,9 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "passport-google-oauth": "^2.0.0"
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth20": "^2.0.0"
   }
 }
