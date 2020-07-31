@@ -1,9 +1,18 @@
 //base styles
-
+*{
+    padding: 0;
+    margin: 0;
+}
 html {
     box-sizing: border-box;
-    font-size: 62.5%; 
+    font-size: 62.5%;         
 }
 body{
     font-size: 1rem;
+}
+.hide {
+    visibility: hidden;
+}
+.no-block {
+    display: none;
 }

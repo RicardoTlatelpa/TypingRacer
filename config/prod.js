@@ -6,5 +6,9 @@ module.exports = {
     MONGO_CONNECT_URI: process.env.MONGO_CONNECT_URI,
     COOKIE_KEY: process.env.COOKIE_KEY,
     ACCESS_TOKEN: process.env.ACCESS_TOKEN,
-    REFRESH_TOKEN: process.env.REFRESH_TOKEN
+    REFRESH_TOKEN: process.env.REFRESH_TOKEN,
+    TOKEN: process.env.TOKEN
 };
+
+
+

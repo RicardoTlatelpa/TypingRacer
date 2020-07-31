@@ -19,15 +19,16 @@ passport.use(
         clientID: keys.GOOGLE_CLIENT_ID,
         clientSecret: keys.GOOGLE_CLIENT_SECRET
     }, (accessToken, refreshToken, profile, done) => {
-        //passport callback with google code
+        //passport callback with google code                
         User.findOne({googleID: profile.id}).then(existingUser => {
             if(existingUser) {
                 return done(null, existingUser);
             }
             else {
-                new User({
-                    googleID: profile.id,
-                    username: profile.displayName
+                new User({                    
+                    username: profile.displayName,
+                    name: profile.displayName,                  
+                    googleID: profile.id
                 })
                 .save()
                 .then(user => done(null, user));

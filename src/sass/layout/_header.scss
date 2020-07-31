@@ -1,0 +1,46 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 1.6rem;
+    &__side-data{
+        display: flex;
+        list-style: none;
+    }
+    &__link {
+        font-size: 1.6rem;
+    }
+    &__link:not(:last-child){
+        margin-right: 10px;
+        
+    }    
+}
+
+.user {    
+    &_svg {        
+        position: relative;
+        fill: blue;
+        width: 18px;       
+    }
+    &__links {
+        position: absolute;        
+        top: 5rem;
+        padding: 1.5rem;
+        transform: translateX(100%);
+        border: .7rem solid red;
+        border-radius: 2rem;
+        list-style: none;
+        width: 130px;
+        font-size: 1.6rem;
+        display: none;
+    }
+    &:hover .user__links {
+        display: flex;
+        transform: translateX(-82%);            
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;            
+    }
+}
