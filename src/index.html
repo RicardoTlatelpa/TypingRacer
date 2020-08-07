@@ -67,9 +67,13 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
     <p class = "user__links__sub-text u-margin-t-small u-margin-b-small">or</p>
 
     <form id = "loginForm" class = "user__links__form">        
-        <input class = "user__links__form__input u-margin-b-small" class = "u-margin-b-small" placeholder="Email" type="email">
+        <label for="emailLogin">Email</label>
+        <br/>        
+        <input class = "user__links__form__input u-margin-b-small" class = "u-margin-b-small" type="email" name = "Email" id = "emailLogin">
         <br/>
-        <input class = "user__links__form__input u-margin-b-small" placeholder="Password" type="password">
+        <label for="passwordLogin">Password</label>
+        <br/>
+        <input class = "user__links__form__input u-margin-b-small" type="password" name = "Password" id = "passwordLogin">
         <br/>
         <button class = "btn--default u-margin-b-medium">Login</button>        
     </form>

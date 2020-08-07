@@ -1,6 +1,6 @@
 const {headerView, headerRegistrationView, clearRegistrationView} = require('../views/headerView');
 const { elements, toggleDisplay } = require('../views/base');
-
+const { checkIfEmpty } = require('./validation');
 import axios from 'axios';
 
 window.onload = async () => {
@@ -26,4 +26,10 @@ elements.userLinks.addEventListener('click', function(event){
     }
 })
 
-//validation
+//validation for input fields
+
+const validateEmailLogin = () => {
+    if(checkIfEmpty(elements.loginEmail)) return;
+}
+
+

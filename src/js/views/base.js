@@ -14,7 +14,9 @@ export const elements = {
      subRegister: document.querySelector('#sub-register'),
      existingAccount: document.querySelector('.existing-account'),
      activateSwitch: document.querySelector('.activate-switch'),
-     subRegistrationForm: document.querySelector('#registrationSubForm')
+     subRegistrationForm: document.querySelector('#registrationSubForm'),
+     loginEmail: document.querySelector('#emailLogin'),
+     loginPassword: document.querySelector('#passwordLogin')
 }
 
 export const toggleHidden = (element) => {
