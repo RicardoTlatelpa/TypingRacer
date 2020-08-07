@@ -15,40 +15,48 @@
         margin-right: 10px;
         
     }    
+    h1{
+        font-family: 'Source Sans Pro', sans-serif;
+    }
 }
-.user {    
+.user {        
     &_svg {        
         position: relative;
         fill: blue;
-        width: 18px;       
+        width: 18px;     
+        cursor: pointer;  
     }
     &__links {
-        // border: 1px solid blue;
+        
+        width: 30rem;
+        padding: 1.5rem;
         box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.08);
         background: rgb(221, 247, 255);
         position: absolute;        
         margin-top: 4.7rem;
         top: 0rem;        
-        padding: 1.5rem;                
+        
         border-radius: 1rem;
-        list-style: none;        
-        font-size: 1.6rem;
+        list-style: none;                
         display: none;        
         &__sub-text{
             color:rgb(96, 96, 96);
         }
         &__form {      
+            width: 100%;
             text-align: left;      
             &__input {          
                 border: none;      
                 font-size: 1.6rem;
                 padding: 1rem;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.043), 0 4px 12px rgba(0, 0, 0, 0.043);
-                text-align: center !important;
+                text-align: center !important;   
+                width:100%;             
             }
         }
     }
     &:hover .user__links {
+        
         right: 1rem;
         display: flex;               
         flex-direction: column;

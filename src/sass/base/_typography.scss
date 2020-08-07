@@ -2,3 +2,12 @@ $font-size-title: 5rem;
 $font-size-medium-title: 4rem;
 $font-size-subtitle: 3.2rem;
 $font-size-text: 1.6rem;
+
+$font-family-large: 'Source Sans Pro', sans-serif;
+$font-family-medium: 'Oxygen', sans-serif;
+$font-family-text: 'Numans', sans-serif;
+.text{
+    &--small {
+        font-size: 1.4rem;
+    }
+}
