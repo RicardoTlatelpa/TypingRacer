@@ -64,16 +64,16 @@ router.post('/login', async (req,res) => {
 })
 
 router.get('/api/logout', (req,res) => {
-    //clear the cookies --- which gives access to the session
+    //clear the cookies --- which gives access to the session    
     const token = req.header('auth-token');
     if(token) {
         delete req.headers('auth-token');
         res.redirect('/');
     }else {
-        req.logOut();//passport
+        req.logOut();  
+        req.user = null;
         res.redirect('/');
-    }
-    
+    }    
 })
 //in auth/strategies/google passport object is attached with google credentials 
 //this first route authenticates and scopes user authorized profile

@@ -3,8 +3,7 @@ const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-module.exports = {
-    
+module.exports = {    
     entry: {
        app: './src/js/index.js', 
        sass: './src/sass/main.scss',
@@ -12,7 +11,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: 'js/[name].js'
+        filename: 'js/[name].bundle.js'
     },
     devServer: {
         contentBase: './dist'
@@ -22,24 +21,17 @@ module.exports = {
         new HTMLWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html',            
-        }),
-        new HTMLWebpackPlugin({
-            filename: 'registration.html',
-            template: './src/registration.html',
-            chunks: ['sass', 'header']
-        }),
+        }),  
         new HTMLWebpackPlugin({
             filename: '404.html',
             template: './src/404.html',
-            chunks: ['sass','header']
         }),
         new HTMLWebpackPlugin({
             filename: 'dashboard.html',
             template: './src/dashboard.html',
-            chunks: ['sass', 'header']
         }),
         new MiniCSSExtractPlugin({
-            filename: '[name].[hash:8].css'
+            filename: '[name].css'
         }),
         new CleanWebpackPlugin()
     ],
@@ -62,8 +54,7 @@ module.exports = {
                       reloadAll: true
                   }
               },  
-               "css-loader",  
-               "postcss-loader",            
+               "css-loader",                 
                "sass-loader"
             ] 
             }

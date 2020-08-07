@@ -1,4 +1,5 @@
 export const elements = {
+     username: document.querySelector('#username'),
      theDiv: document.getElementById('key'),
      input: document.querySelector('#userInput'),
      triggerBtn: document.querySelector('#startGame'),
@@ -7,7 +8,13 @@ export const elements = {
      minute: document.querySelector('.minute'),
      second: document.querySelector('.second'),
      currentSpeedEl: document.querySelector('.typing-speed'),
-     userLinks: document.querySelector('.user__links')
+     userLinks: document.querySelector('.user__links'),
+     averageRaces: document.querySelector('.races'),
+     numOfRaces: document.querySelector('.numOfRaces'),
+     subRegister: document.querySelector('#sub-register'),
+     existingAccount: document.querySelector('.existing-account'),
+     activateSwitch: document.querySelector('.activate-switch'),
+     subRegistrationForm: document.querySelector('#registrationSubForm')
 }
 
 export const toggleHidden = (element) => {

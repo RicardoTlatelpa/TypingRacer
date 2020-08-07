@@ -7,6 +7,12 @@ import axios from 'axios';
 require('../js/models/header');
 require('../sass/main.scss');
 //Controller
+class Race {
+    constructor(speed, username = "Guest") {
+        this.speed = speed;
+        this.user = user;
+    }
+}
 let startTimer = false;
 let gameState = {
     wordIndexes: null,

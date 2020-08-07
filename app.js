@@ -20,9 +20,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
-app.get('/user/register', (req,res) => {
-  res.sendFile(path.join(__dirname + '/public/registration.html'));
-})
 app.get('/dashboard', (req,res) => {
   res.send('This is your dashboard');
 })

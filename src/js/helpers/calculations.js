@@ -1,10 +1,3 @@
-export class Race {
-    constructor(speed, username = "Guest") {
-        this.speed = speed;
-        this.user = user;
-    }
-}
-
 export const calculateAccuracy = (w,t) => {
     let correctLetters = t - w;
     return Math.floor((correctLetters/t) * 100);

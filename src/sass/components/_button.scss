@@ -1,0 +1,38 @@
+.btn {    
+    font-size: 1.6rem;
+    padding: 1rem 1rem;
+    border-radius: 10rem;    
+    box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.08);
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    background: white;    
+    a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: black;
+    }    
+    &--default {
+        background: white;
+        display: inline-block;        
+        margin: 0;        
+        color: none;
+        font-size: 1.6rem;
+        padding: 1rem 1rem;
+        border-radius: 10rem;    
+        box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.08);
+        cursor: pointer;
+        text-align: center;
+        font-weight: bold;
+        border: none;
+        text-decoration: none;                        
+        font-size: inherit;                
+        transition: background 250ms ease-in-out, 
+                    transform 150ms ease;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+}
