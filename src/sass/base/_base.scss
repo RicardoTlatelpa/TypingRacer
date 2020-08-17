@@ -15,7 +15,7 @@ body{
     visibility: hidden;
 }
 .no-block {
-    display: none;
+    display: none !important;
 }
 .container {
     width: 140rem;    

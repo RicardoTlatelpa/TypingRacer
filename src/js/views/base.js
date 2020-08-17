@@ -14,10 +14,16 @@ export const elements = {
      subRegister: document.querySelector('#sub-register'),
      existingAccount: document.querySelector('.existing-account'),
      activateSwitch: document.querySelector('.activate-switch'),
-     subRegistrationForm: document.querySelector('#registrationSubForm'),
+     subRegistrationForm: document.querySelector('.registrationSubForm'),
      loginEmail: document.querySelector('#emailLogin'),
      loginPassword: document.querySelector('#passwordLogin'),
-     loginForm: document.querySelector('#loginForm')
+     loginForm: document.querySelector('#loginForm'),
+     userButton: document.querySelector('#svg-t'),
+     registerForm: document.querySelector('#registerForm'),
+     usernameRegister: document.querySelector('#usernameRegister'),
+     emailRegisterInput: document.querySelector('#emailRegister'),
+     passwordRegisterInput: document.querySelector('#passwordRegister'),
+     confirmPasswordRegisterInput: document.querySelector('#confirmPasswordRegister')
 }
 
 export const toggleHidden = (element) => {
@@ -25,6 +31,7 @@ export const toggleHidden = (element) => {
 }
 
 export const toggleDisplay = (element) => {
+    
     element.classList.toggle('no-block');
 }
 

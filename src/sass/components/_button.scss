@@ -4,19 +4,21 @@
     border-radius: 10rem;    
     box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.08);
     cursor: pointer;
-    text-align: center;
-    font-weight: bold;
+    text-align: center;    
     width: 100%;
     background: white;  
-    outline: none;  
+    outline: none;     
+    transition: all 0.3s; 
     a{
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
         color: black;
+        outline: none;     
     }    
     &--default {
+        
         outline: none;
         background: white;
         display: inline-block;        
@@ -37,5 +39,8 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         width: 100%;
+    }
+    &--animate:hover {
+        transform: translateY(-4px);
     }
 }

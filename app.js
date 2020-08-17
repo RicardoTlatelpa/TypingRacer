@@ -14,11 +14,13 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 let limit = 0;
 const cors = require('cors');
-
+const bodyParser = require("body-parser");
+const verifyToken = require('./middleware/requirelogin');
+app.use(bodyParser.json())
 //allow cross origin for development
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname + '/public'));
+app.use(verifyToken,express.static(__dirname + '/public'));
 
 app.get('/dashboard', (req,res) => {
   res.send('This is your dashboard');

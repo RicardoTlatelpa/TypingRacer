@@ -5,7 +5,7 @@ TODO:
 */
 import axios from 'axios';
 require('../js/models/header');
-require('../sass/main.scss');
+
 //Controller
 class Race {
     constructor(speed, username = "Guest") {

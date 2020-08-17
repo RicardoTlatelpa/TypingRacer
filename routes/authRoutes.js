@@ -3,10 +3,13 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 const User = require('../models/User');
+const authToken = require('../middleware/requirelogin');
 const { registerValidation, loginValidation } = require('../services/validation');
+const checkIfLogged = require('../middleware/loginCheck');
 const bcrypt = require('bcryptjs');
 
-router.get('/api/user', (req,res) => {
+
+router.get('/api/user', authToken, (req,res) => {    
     res.send(req.user);
 });
 
@@ -40,44 +43,35 @@ router.post('/register', async (req,res, done) => {
         }
 })
 
-router.post('/login', async (req,res) => {
-    const loginV = await loginValidation(req.body);
-    if(loginV.error) {
-        return res.status(400).send(loginV.error.details[0].message);
-    }else {
-        const emailExist = User.findOne({email: req.body.email}).then(async(existing) => {
+router.post('/login', authToken, async (req,res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    
+        const emailExist = User.findOne({email: email}).then(async(existing) => {
             if(existing){
-                const validPass = await bcrypt.compare(req.body.password, existing.password);
+                const validPass = await bcrypt.compare(password, existing.password);
                 if(!validPass) {
-                    return res.status(400).send('try again')
+                    return res.status(400).send('Username and password combination is wrong.');
                 }else {
                     //store session/token
-                    const token = jwt.sign({id: existing._id}, keys.TOKEN )
-                    res.header('auth-token', token).send('Success');                   
+                    const token = jwt.sign({id: existing._id, username: existing.username}, keys.TOKEN, { expiresIn: '1h'});
+                    //set the auth token header
+                    res.header('auth-token', token).send(token);                    
                 }
             }else {
                 return res.status(400).send("Email or password is wrong");
             }
         })
-        
-    }
 })
 
 router.get('/api/logout', (req,res) => {
     //clear the cookies --- which gives access to the session    
-    const token = req.header('auth-token');
-    if(token) {
-        delete req.headers('auth-token');
-        res.redirect('/');
-    }else {
-        req.logOut();  
-        req.user = null;
-        res.redirect('/');
-    }    
+    req.logOut(); 
+    res.redirect('/');
 })
 //in auth/strategies/google passport object is attached with google credentials 
 //this first route authenticates and scopes user authorized profile
-router.get('/auth/google', passport.authenticate("google", {
+router.get('/auth/google', checkIfLogged,  passport.authenticate("google", {
     scope: ['profile']
 }), (req,res) => {
     const token = req.header('auth-token');
@@ -87,7 +81,7 @@ router.get('/auth/google', passport.authenticate("google", {
 })
 //recieves code back from google and triggers passport callback
 //in google.js
-router.get('/auth/google/redirect', passport.authenticate("google"), (req,res)=> {
+router.get('/auth/google/redirect',authToken, checkIfLogged, passport.authenticate("google"), (req,res)=> {
     //access to logged in user with request object 
     res.redirect('/');
 })

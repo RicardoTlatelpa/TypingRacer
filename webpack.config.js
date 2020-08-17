@@ -6,8 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {    
     entry: {
        app: './src/js/index.js', 
-       sass: './src/sass/main.scss',
-       header: './src/js/models/header.js'
+       sass: './src/sass/main.scss'    
     },
     output: {
         path: path.resolve(__dirname, 'public'),
@@ -21,14 +20,6 @@ module.exports = {
         new HTMLWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html',            
-        }),  
-        new HTMLWebpackPlugin({
-            filename: '404.html',
-            template: './src/404.html',
-        }),
-        new HTMLWebpackPlugin({
-            filename: 'dashboard.html',
-            template: './src/dashboard.html',
         }),
         new MiniCSSExtractPlugin({
             filename: '[name].css'
@@ -54,7 +45,7 @@ module.exports = {
                       reloadAll: true
                   }
               },  
-               "css-loader",                 
+               "css-loader",                                
                "sass-loader"
             ] 
             }

@@ -1,43 +1,101 @@
-const {headerView, headerRegistrationView, clearRegistrationView} = require('../views/headerView');
+const { headerView } = require('../views/headerView');
 const { elements, toggleDisplay } = require('../views/base');
-const { checkIfEmpty, validPasswordLength } = require('./validation');
-import axios from 'axios';
+const { validateEmailLogin, validatePasswordLogin } = require('./validation');
+const { verifyUser, login, logout, headerRacers } = require('../helpers/promises');
+const { clearToken } = require('../helpers/clientStorage');
 
-window.onload = async () => {
-    const response = await axios.get('/api/user');
-    if(response.data) {
-        headerView(response.data);
-    }else {
-        headerView(false);
-    }    
+
+window.onload = async () => {   
+    try {
+        let user = await verifyUser();                      
+        headerView(user.data);                    
+    }catch(err){
+        headerView(false);        
+    }       
 }
-elements.subRegister.addEventListener('click', function(e){
-    e.stopImmediatePropagation();    
-    toggleDisplay(elements.existingAccount);
-    headerRegistrationView();
+
+//handle logout
+document.addEventListener('click', async(e) => {
+    let element = e.target;
+    if(element.id === "#logout"){        
+        try {
+            clearToken();
+            await logout();                                
+            location.reload();
+        }catch(err){
+            console.log(err);
+        }        
+    }
 });
 
+
+elements.subRegister.addEventListener('click', function(e){
+    e.stopImmediatePropagation();    
+    toggleDisplay(elements.existingAccount);    
+    toggleDisplay(elements.subRegistrationForm);    
+});
 
 elements.userLinks.addEventListener('click', function(event){
     if(event.target.id === "activate-switch") {
         event.stopImmediatePropagation();
         toggleDisplay(elements.existingAccount);
-        clearRegistrationView();
+        toggleDisplay(elements.subRegistrationForm);
     }
 })
 
-//validation for input fields
-elements.loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+elements.userButton.addEventListener('click', (e) => {    
+    toggleDisplay(elements.userLinks);
+    e.stopImmediatePropagation();
 })
-const validateEmailLogin = () => {
-    if(checkIfEmpty(elements.loginEmail)) return;        
-}
 
+//validation for login in inputs
 elements.loginEmail.addEventListener('focusout', (e) => {
-    validateEmailLogin(e.target);
+    validateEmailLogin();
 })
 
 elements.loginPassword.addEventListener('focusout', (e) => {
-    if(checkIfEmpty(elements.loginPassword)) return;
+    validatePasswordLogin();
 })
+
+//register validation inputs
+elements.usernameRegister.addEventListener('keypress', (e) => {
+    if(e.target.keyCode ===32){
+        return false;
+    }
+})
+// elements.usernameRegister.addEventListener('focusout', (e) => {
+//     if(checkIfEmpty(e.target)) return;
+
+// })
+
+// elements.emailRegisterInput.addEventListener('focusout', (e) => {
+//     if(checkIfEmpty(e.target)) return;
+// })
+
+// elements.passwordRegisterInput.addEventListener('focusout', (e) => {
+//     if(checkIfEmpty(e.target)) return;
+// })
+
+// elements.confirmPasswordRegisterInput.addEventListener('focusout', (e) => {
+//     if(checkIfEmpty(e.target)) return;
+// })
+
+//form submissions asynchronous
+elements.loginForm.addEventListener('submit', async (e) => {    
+    e.preventDefault();
+    if(validateEmailLogin() && validatePasswordLogin()){
+        let data = {
+            email: elements.loginEmail.value,
+            password: elements.loginPassword.value
+        }            
+        let response = await login(data);      
+        localStorage.setItem("auth-token",response.data);
+        location.reload();  
+    }
+    
+})
+
+elements.registerForm.addEventListener('submit', (e) => {    
+    e.preventDefault();
+})
+
