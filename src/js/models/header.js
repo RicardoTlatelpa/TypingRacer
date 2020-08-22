@@ -7,7 +7,8 @@ const { clearToken } = require('../helpers/clientStorage');
 
 window.onload = async () => {   
     try {
-        let user = await verifyUser();                      
+        let user = await verifyUser();   
+        console.log(user);                   
         headerView(user.data);                    
     }catch(err){
         headerView(false);        
@@ -89,8 +90,8 @@ elements.loginForm.addEventListener('submit', async (e) => {
             password: elements.loginPassword.value
         }            
         let response = await login(data);      
-        localStorage.setItem("auth-token",response.data);
-        location.reload();  
+        console.log(response);
+        
     }
     
 })

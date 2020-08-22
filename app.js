@@ -10,30 +10,32 @@ const google = require('./auth/strategies/google');
 const authRoutes = require('./routes/authRoutes');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
+const cookieParser = require('cookie-parser');
+
 const cookieSession = require('cookie-session');
-const passport = require('passport');
 let limit = 0;
+const passport = require('passport');
 const cors = require('cors');
 const bodyParser = require("body-parser");
-const verifyToken = require('./middleware/requirelogin');
-app.use(bodyParser.json())
+
 //allow cross origin for development
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.json());
-app.use(verifyToken,express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
-app.get('/dashboard', (req,res) => {
-  res.send('This is your dashboard');
-})
-
-
+app.use(authRoutes);
+require('./auth/strategies/local')(passport);
 //stuff the user session in the cookie
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000, 
   keys: [keys.COOKIE_KEY]
 }))
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(require('flash')());
 
 //if something went wrong, try reconnecting
 const run = async () => {
@@ -41,18 +43,16 @@ const run = async () => {
       autoReconnect: true,
       reconnectTries: 1000000,
       reconnectInterval: 3000
-    })
-    
+    })  
   }
   
+  //keep attempting to connect to the server
 run().catch(error => console.error(error));
 
 let gameCollection = function(){
   this.totalGameCount = 0;
   this.gameList = [];
 }
-
-
 
 function buildGame(socket) {
   let gameObject = {};
@@ -181,23 +181,7 @@ io.on('connection', function(socket) {
 
 });
 
-
-app.use(authRoutes);
-
-//handling 404s/ failure to find favicon.ivo:1
-
-
-// app.use((req,res,next) => {
-//   next({
-//     status: 404,
-//     message: 'Not found'
-//   });
-// })
-// app.use((err,req,res,next) => {
-//   if(err.status === 404) {
-//     console.log(true);
-//     res.send('Your request cannot be handled.');
-//   }
-//   next();
-// })
 server.listen(PORT);
+
+
+

@@ -2,16 +2,7 @@ import axios from 'axios';
 
 export const verifyUser = async() => {
     try {
-        const headerToken = localStorage.getItem('auth-token');
-        if(headerToken){
-            return await axios.get('http://localhost:3000/api/user', {
-            headers: {
-            'auth-token': headerToken
-            }
-        }); 
-        }else {
-            return await axios.get('http://localhost:3000/api/user');
-        }          
+    return await axios.get('http://localhost:3000/api/user', {withCredentials: true});     
     }catch(err){        
         return err;
     }   

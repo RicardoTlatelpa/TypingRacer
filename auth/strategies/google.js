@@ -18,17 +18,20 @@ passport.use(
         callbackURL: '/auth/google/redirect',
         clientID: keys.GOOGLE_CLIENT_ID,
         clientSecret: keys.GOOGLE_CLIENT_SECRET
-    }, (accessToken, refreshToken, profile, done) => {
+    }, (accessToken, refreshToken, profile, done) => {        
         //passport callback with google code                
-        User.findOne({googleID: profile.id}).then(existingUser => {
+        User.findOne({email: profile._json.email}).then(existingUser => {
             if(existingUser) {
                 return done(null, existingUser);
             }
             else {
                 new User({                    
-                    username: profile.displayName,
-                    name: profile.displayName,                  
-                    googleID: profile.id
+                    username: profile.displayName,                    
+                    google: {
+                        googleID: profile.id,
+                        email: profile._json.email,          
+                        name: profile.displayName               
+                    }                                        
                 })
                 .save()
                 .then(user => done(null, user));
