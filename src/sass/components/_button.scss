@@ -9,6 +9,7 @@
     background: white;  
     outline: none;     
     transition: all 0.3s; 
+    border: none;
     a{
         display: flex;
         align-items: center;
@@ -18,7 +19,6 @@
         outline: none;     
     }    
     &--default {
-        
         outline: none;
         background: white;
         display: inline-block;        
@@ -42,5 +42,24 @@
     }
     &--animate:hover {
         transform: translateY(-4px);
+    }
+    &--menu {
+        width: auto;
+        padding: 1.2rem 2.5rem;
+        background-color: rgb(248, 50, 50);
+        color: white;
+        box-shadow:none;
+        -webkit-box-shadow: inset 0px -15px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: inset 0px -15px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: inset 0px -4px 0px 0px rgba(0, 0, 0, 0.221);
+        transition: all 0.1s; 
+        &:hover {
+            background-color: #ff7878;
+        }
+        &:active{
+            box-shadow: none;
+            transform: translateY(2px);
+        }
+        font-size: 1.8rem;
     }
 }

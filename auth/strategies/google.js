@@ -20,7 +20,7 @@ passport.use(
         clientSecret: keys.GOOGLE_CLIENT_SECRET
     }, (accessToken, refreshToken, profile, done) => {        
         //passport callback with google code                
-        User.findOne({email: profile._json.email}).then(existingUser => {
+        User.findOne({$or: [{"local.email": profile._json.email}, {"google.email": profile._json.email}]}).then(existingUser => {
             if(existingUser) {
                 return done(null, existingUser);
             }

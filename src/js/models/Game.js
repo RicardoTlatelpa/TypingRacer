@@ -1,7 +1,36 @@
 import { countdownBeforeGame, secondHandler } from './time';
-
-//initalizing game..
+import axios from 'axios';
 const { elements, toggleDisplay, toggleHidden } = require('../views/base');
+//initalizing game..
+
+class Game{
+    constructor(text,totalCharacters, estimatedTime){
+        this.text = text;
+        this.totalCharacters = totalCharacters;     
+        this.estimatedTime = estimatedTime;  
+    }
+}
+class Player{
+    constructor(id) {
+        this.id = id;
+        this.currentLetters = 1;
+        this.currentWord = 0;
+        this.correctWords = 0;
+        this.lettersWrong = 0;
+        this.timeElapsed = null;
+        this.hash = {};
+        this.races = [];
+    }
+}
+class Race{
+    constructor(accuracy, avgWpm, refToText){
+        this.accuracy = accuracy;
+        this.avgWpm = avgWpm;
+        this.refToText = refToText;
+    }
+}
+
+
 
 const parseQuote = (quote) => {
     let array = quote.split(' ');
@@ -12,55 +41,61 @@ const parseQuote = (quote) => {
 }
 function createSpanWord(word, letter){
     let span = [];    
+
     word.split('').forEach(el => {
         span.push(`<span class = "${letter}">${el}</span>`)
     });
     return span;
 }
 
- const injectWords = () => {
-    let insertedPhrase = [...wordIndexes];
-    if(correctWords > 0) {
-        for(let i = 0; i < correctWords; i++) {
+ export const injectWords = (text, pObj) => {
+
+    let insertedPhrase = [...text];
+    
+    //in game check of correct words
+    if(pObj.correctWords > 0) {
+        for(let i = 0; i < pObj.correctWords; i++) {
             let greenSpan = createSpanWord(insertedPhrase[i], "hoverGreen").join('');
             insertedPhrase[i] = greenSpan;
         }
     }        
-    let spanObj = createSpanWord(insertedPhrase[currentWord], "t");
-    insertedPhrase[currentWord] = spanObj.join('');        
+    
+    //injecting words into the dom as user types
+    let spanObj = createSpanWord(insertedPhrase[pObj.currentWord], "t");
+    insertedPhrase[pObj.currentWord] = spanObj.join('');        
     elements.theDiv.innerHTML = insertedPhrase.join('');    
 }
 
- const fetchText = (game) => {
-    return fetch('https://uselessfacts.jsph.pl/random.json?language=en',
-    {
-    	method: "GET",
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => response.json())
-    .then((responseData) => {      
-      game.wordIndexes = parseQuote(responseData.text);
-      game.totalCharacters = responseData.text.length;      
-    })
-    .catch(error => console.warn(error));
+ const fetchText = async() => {    
+    try {
+        return await axios.get('https://uselessfacts.jsph.pl/random.json?language=en');
+    }catch(err){
+        console.log(err);
+    }
 }
 
-export const newGame = (gObj, pObj) => {
-    fetchText(game).then(() => injectWords());
-    pObj.currentLetters = 1;
-    pObj.timeElapsed = 0;
-    pObj.lettersWrong = 0;
-    pObj.correctWords = 0;
-    pObj.currentWord = 0;
-    elements.currentSpeedEl.textContent = "0";
-    toggleHidden(elements.triggerBtn);
-    toggleHidden(elements.countDown);
+const createGame = async() => {
+    let response = await fetchText();    
+    let parsedData = parseQuote(response.data.text);
+    let totalCharacters = response.data.text.length;
+    return new Game(parsedData, totalCharacters, null);
+}
+
+export const createPlayerObj = (id) => {
+    return new Player(id);
+}
+
+export const newGame = (gameObject, player) => {    
+    injectWords(gameObject.text, player);    
+}
+
+export const startPractice = async() =>{    
+    //step1 create a game
+    let gameObject = await createGame()
+    //step 2 change the menu to game       
     toggleDisplay(elements.globalTimer);
-    countdownBeforeGame();
-    setTimeout(() => {
-        secondHandler();
-    }, 5000);
+    toggleDisplay(elements.main_menu);
+    toggleDisplay(elements.gameSession);
+    //step 3 display game and countdown
+    return gameObject;
 }

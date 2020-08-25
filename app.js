@@ -1,41 +1,41 @@
 //handle gaming data
 const uniqid = require('uniqid');
-const path = require('path');
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT || 3000;
-const google = require('./auth/strategies/google');
+
 const authRoutes = require('./routes/authRoutes');
 const mongoose = require('mongoose');
 const keys = require('./config/keys');
-const cookieParser = require('cookie-parser');
 
-const cookieSession = require('cookie-session');
 let limit = 0;
+
 const passport = require('passport');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 
-//allow cross origin for development
-app.use(cors());
-app.use(bodyParser.json());
+
+require('./auth/strategies/passport')(passport);
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
-
-app.use(authRoutes);
-require('./auth/strategies/local')(passport);
-//stuff the user session in the cookie
-app.use(cookieSession({
-  maxAge: 24 * 60 * 60 * 1000, 
-  keys: [keys.COOKIE_KEY]
-}))
-
+//allow cross origin for development
+app.use(cors());
+app.use(require('cookie-parser')())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(require('express-session')({
+  secret: keys.COOKIE_KEY,
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(require('flash')());
+
+
+
+app.use(authRoutes);
 
 //if something went wrong, try reconnecting
 const run = async () => {

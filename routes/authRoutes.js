@@ -5,16 +5,10 @@ const requireLogin = require('../middleware/requirelogin');
 const { registerValidation } = require('../services/validation');
 const checkIfLogged = require('../middleware/loginCheck')
 const bcrypt = require('bcryptjs');
-const { exist } = require('joi');
-
 
 
 router.get('/api/user', (req,res) => {
     res.send(req.user);
-})
-
-router.get('/api/user/races', requireLogin, (req,res) => {
-    res.send('Only the most authenticated shall pass!');
 })
 
 router.post('/register', async (req,res, done) => {    
@@ -29,21 +23,26 @@ router.post('/register', async (req,res, done) => {
                     {"google.email": req.body.email}
                 ]})
                 // either in the nested google object or local object
-            .then(async(existisingUser) => {                
+            .then(async(existisingUser) => {                       
                 if(existisingUser) {
                     //if found in the google object
-                    if(!existisingUser.local.email){
-                        //if so update the current user's local object
+                    if(existisingUser.local == '{}'){                        
+                        // if so update the current user's local object
                         const salt = await bcrypt.genSalt(10);
                         const hashedPwd = await bcrypt.hash(req.body.password, salt);
-                        User.update({_id: existisingUser._id}, {$set: {local: {
+                       await User.update({_id: existisingUser._id}, {$set: {
+                            local: {
                             email: req.body.email,
                             password: hashedPwd
-                        }}})
-                    }                    
-                    res.status(400).send('Email is already in use.');
-                    return done(null, existisingUser);
-                    
+                        }}}).then((err, result) => {
+                            if(err) throw err;
+                            else {                                
+                                return done(null, result);
+                            }
+                        })                        
+                    }
+                        res.status(400).json({message: "Email is already in use!"});
+                        return done(null, existisingUser);                                                                                
                 }
                 else {
                     const salt = await bcrypt.genSalt(10);
@@ -68,9 +67,11 @@ router.post('/register', async (req,res, done) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/fail'
-}));
+    failureRedirect: '/fail',
+    successRedirect: '/'
+}), function(req,res) {
+    res.send('hey');
+});
  
 router.get('/api/logout', (req,res) => {
     //clear the cookies --- which gives access to the session    

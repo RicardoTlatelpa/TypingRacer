@@ -1,7 +1,6 @@
 export const elements = {
      username: document.querySelector('#username'),
-     theDiv: document.getElementById('key'),
-     input: document.querySelector('#userInput'),
+     theDiv: document.getElementById('key'),     
      triggerBtn: document.querySelector('#startGame'),
      countDown:document.querySelector('#countdown'),
      globalTimer: document.querySelector('.time'),
@@ -23,7 +22,11 @@ export const elements = {
      usernameRegister: document.querySelector('#usernameRegister'),
      emailRegisterInput: document.querySelector('#emailRegister'),
      passwordRegisterInput: document.querySelector('#passwordRegister'),
-     confirmPasswordRegisterInput: document.querySelector('#confirmPasswordRegister')
+     confirmPasswordRegisterInput: document.querySelector('#confirmPasswordRegister'),
+     main_menu: document.querySelector('.main-menu'),
+     practiceButton: document.querySelector('#practiceType'),
+     gameInput: document.querySelector('#userInput'),
+     gameSession: document.querySelector('.game')
 }
 
 export const toggleHidden = (element) => {
@@ -31,7 +34,6 @@ export const toggleHidden = (element) => {
 }
 
 export const toggleDisplay = (element) => {
-    
     element.classList.toggle('no-block');
 }
 

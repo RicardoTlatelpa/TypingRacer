@@ -1,4 +1,5 @@
 .header{
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,6 +28,7 @@
         cursor: pointer;  
     }
     &__links {        
+        z-index: 110000;
         width: 30rem;
         padding: 1.5rem;
         box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.08);

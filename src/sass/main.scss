@@ -1,3 +1,4 @@
+@import "layout/grid.scss";
 @import "base/typography.scss";
 @import "abstracts/mixins.scss";
 @import "abstracts/utils.scss";
@@ -6,3 +7,5 @@
 @import "base/font.scss";
 @import "components/button.scss";
 @import "layout/header.scss";
+@import "pages/main-menu.scss";
+@import "pages/game.scss";
