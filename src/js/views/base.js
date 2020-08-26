@@ -2,7 +2,7 @@ export const elements = {
      username: document.querySelector('#username'),
      theDiv: document.getElementById('key'),     
      triggerBtn: document.querySelector('#startGame'),
-     countDown:document.querySelector('#countdown'),
+     countDown:document.querySelector('#countdownNum'),
      globalTimer: document.querySelector('.time'),
      minute: document.querySelector('.minute'),
      second: document.querySelector('.second'),
@@ -26,7 +26,10 @@ export const elements = {
      main_menu: document.querySelector('.main-menu'),
      practiceButton: document.querySelector('#practiceType'),
      gameInput: document.querySelector('#userInput'),
-     gameSession: document.querySelector('.game')
+     gameSession: document.querySelector('.game'),
+     gameContainer: document.querySelector('.game__container'),
+     countDownComponent: document.querySelector('.countdown-backdrop')
+
 }
 
 export const toggleHidden = (element) => {

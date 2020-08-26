@@ -22,15 +22,13 @@ class Player{
         this.races = [];
     }
 }
-class Race{
+export class Race{
     constructor(accuracy, avgWpm, refToText){
         this.accuracy = accuracy;
         this.avgWpm = avgWpm;
         this.refToText = refToText;
     }
 }
-
-
 
 const parseQuote = (quote) => {
     let array = quote.split(' ');
@@ -47,7 +45,7 @@ function createSpanWord(word, letter){
     });
     return span;
 }
-
+//update the race for the user 
  export const injectWords = (text, pObj) => {
 
     let insertedPhrase = [...text];
@@ -80,22 +78,21 @@ const createGame = async() => {
     let totalCharacters = response.data.text.length;
     return new Game(parsedData, totalCharacters, null);
 }
-
+//create a new player object data every race
 export const createPlayerObj = (id) => {
     return new Player(id);
 }
-
+//initialize game
 export const newGame = (gameObject, player) => {    
     injectWords(gameObject.text, player);    
 }
-
+//pass game data to controller
 export const startPractice = async() =>{    
     //step1 create a game
     let gameObject = await createGame()
-    //step 2 change the menu to game       
-    toggleDisplay(elements.globalTimer);
+    //step 2 change the menu to game           
     toggleDisplay(elements.main_menu);
-    toggleDisplay(elements.gameSession);
+    toggleDisplay(elements.gameContainer);
     //step 3 display game and countdown
     return gameObject;
 }

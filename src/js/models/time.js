@@ -1,4 +1,4 @@
-const { elements } = require('../views/base');
+const { elements, toggleDisplay } = require('../views/base');
 const { timerUI } = require('../views/timerView');
 const { updateRacerTimerUI } = require('../views/timerView');
 
@@ -20,12 +20,13 @@ export const secondHandler = () => {
 }
 
 export function countdownBeforeGame(){ 
-    let seconds = document.querySelector('#countdown').textContent;
+    let seconds = document.querySelector('#countdownNum').innerHTML;
+    console.log(seconds);
     let countDownTimer = setInterval(function(){    
         seconds--;
-        countDown.textContent = seconds;
-        if(seconds <= 0){
-            timerUI()                                  
+        elements.countDown.textContent = seconds;
+        if(seconds <= 0){                
+            toggleDisplay(elements.countDownComponent)    
             clearInterval(countDownTimer);                 
         }
     }, 1000)

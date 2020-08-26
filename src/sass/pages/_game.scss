@@ -1,8 +1,12 @@
-.time {
-    font-size: 1.7rem;
-}
+
 .game {
-    font-size: 1.7rem;
+    position: relative;
+    &__container{
+        font-size: 1.7rem;
+        display: block;        
+        margin-top: 6rem;    
+        padding: 1rem;    
+    }
     &__input {
         font-size:2.4rem;
         width: 45rem;
@@ -10,10 +14,18 @@
         outline: none;        
     }
 }
+#key {
+    width: 70%;
+}
+.typing-speed {
+    position: absolute;
+    right:0;
+    transform: translateY(-100%);
+}
 .hoverGreen {
     background-color: #5cff5c;
 }
 .hoverRed {
-    background-color: red;
+    background-color: rgb(247, 73, 73);
 }
 

@@ -1,0 +1,16 @@
+.countdown-backdrop {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.countdown {
+    position: relative;
+    width: 40rem;
+    height: 20rem;
+    top:0;    
+    background: #ddf7ff;
+    transform: translate(50%, -60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

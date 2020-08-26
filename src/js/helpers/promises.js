@@ -7,22 +7,7 @@ export const verifyUser = async() => {
         return err;
     }   
 }
-export const headerRacers = async() => {
-    const headerToken = localStorage.getItem('auth-token');
-    try{
-        if(headerToken){
-            return await axios.get('http://localhost:3000/api/user/races', {
-                headers : {
-                    'auth-token': headerToken
-                }
-            })
-        }
-        return await axios.get('http://localhost:3000/api/user/races');
-    }
-    catch(err){
-        console.log(err);
-    }
-}
+
 export const login = async(data) => {
     return await axios.post('http://localhost:3000/login', data);
 }

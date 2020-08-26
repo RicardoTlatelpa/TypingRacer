@@ -2,14 +2,24 @@
 TODO:
 []When inspecting element user can change the value and can hack game
 []Racing PROGRESS finish race figure
+[]Finish Header
+[]Time component
+[]Speed component
+[]Security
+[]Create new games
+[]End of race statistics
+[timers]
 */
 import axios from 'axios';
-const { startPractice, createPlayerObj, newGame, injectWords } = require('../js/models/Game');
+import { calculateAccuracy } from './helpers/calculations';
+import { countdownBeforeGame } from './models/time';
+const { startPractice, createPlayerObj, newGame, injectWords, Race } = require('../js/models/Game');
 const { elements } = require('./views/base');
 
 require('../js/models/header');
 
 //Controller
+let online = false;
 let startTimer = false;
 //on a new race
 let currentGameData;
@@ -17,13 +27,24 @@ let playerState;
 let races = []; //for guests with no accounts 
 let racerTimer;
 
+
+
+
+//practice mode
 elements.practiceButton.addEventListener('click', async() =>{
     let practiceUser = createPlayerObj('guest');        
     playerState = practiceUser // initalize player state;
     let newGameData = await startPractice();
     currentGameData = newGameData;
     newGame(newGameData,practiceUser);    
-})
+    countdownBeforeGame();
+                            
+    elements.gameInput.disabled = false;
+    elements.gameInput.focus();
+});
+
+
+elements.gameInput.disabled = true;
 
 elements.gameInput.addEventListener('input', (e) => {    
     const wordQuote = elements.theDiv.querySelectorAll('span.t');
@@ -65,10 +86,18 @@ elements.gameInput.addEventListener('input', (e) => {
             }
         }
     })
+
     if(correct){
         if(playerState.currentWord === currentGameData.text.length -1){
-            //create new race object and push it to guest 
+            //create new race object and push it to guest             
+            const accuracy = calculateAccuracy(playerState.lettersWrong, currentGameData.totalCharacters)
+            //pass it Average WPM and reference to text.
+            const finishedRaceData = new Race(accuracy, null, null);
+            if(online){
+                console.log('you are online!');//jk update the database 
+            }            
             elements.gameInput.disabled = true;
+            e.target.value = '';
         }else {
             e.target.value = '';
             playerState.currentWord++;
@@ -77,6 +106,9 @@ elements.gameInput.addEventListener('input', (e) => {
             injectWords(currentGameData.text, playerState);
         }
     }
+
+
+
 })
 
 

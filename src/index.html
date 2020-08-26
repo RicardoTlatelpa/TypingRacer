@@ -11,9 +11,10 @@
 <div class="header">
     <h1 >Welcome to Typing Racer! V.1</h1>
     <ul class="header__side-data">
-        <li class="header__link"> <p id="username"></p> </li>
-        <li class="header__link">Average Speed: <span class="races"></span></li>
-        <li class="header__link">Races: <span class="numOfRaces"></span></li>        
+        <li class="header__link"> <p id="username"></p> </li> 
+         
+        <li class="header__link">| Average Speed: <span class="races"></span></li>
+        <li class="header__link">| Races: <span class="numOfRaces"></span></li>        
  <div class="user">
 <svg id = "svg-t" class = "user_svg" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -127,16 +128,10 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
 
   
 <!-- end of header -->
+    
     <!-- activate when race starts -->
-    <div class = "time row no-block">   
-        <h2>Current Speed:</h2> 
-        <p class = "typing-speed">0</p>
-        <h2 class = "inline">Timer:</h2>     
-        <span class = "minute">3</span><span>:</span><span class="second">00</span>
-        <div class = "u-margin-t-medium" id="key"></div>        
-        
-        <span id="countdown">5</span>
-        </div>        
+
+    
         <section class="main-menu row">
             <svg class = "main-menu__svg" xmlns="http://www.w3.org/2000/svg" width="875.052" height="1085.378" viewBox="0 0 875.052 1085.378">
                 <g id="Group_17" data-name="Group 17" transform="translate(-4898.178 -3787.5)">
@@ -174,14 +169,44 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
             <h1 class = "u-margin-b-small header--medium"> Race your friends and become a faster typer!</h1>
             <div class="main-menu__options">
             <button class = "btn btn--menu" id = "friendGame">Play with your friends!</button> 
-            <button class = "btn btn--menu" id = "findGame">Find Game</button>
+            <button class = "btn btn--menu" id = "findGame">Random Match</button>
             <button class = "btn btn--menu" id = "practiceType">Practice</button>
             
             </div>
         </section>
-        <section class="game row no-block">            
-            <input autocomplete="off" class = "game__input" type="text" id="userInput">
+    <div class="game__container no-block row__game">
+        <section class="game">
+            <!-- USER TIME -->
+            <div class = "time">                   
+                <h2 class = "inline u-margin-b-medium">Timer: <span class = "minute">3</span><span>:</span><span class="second">00</span></h2>                     
+            </div>        
+            <!-- END OF USER TIME -->            
+
+            <!-- INJECTED SPAN OBJECTS  -->
+            <div class = "u-margin-t-medium" id="key"></div>  
+                          
+            <!-- COUNTDOWN COMPONENT -->
+            <div class="countdown-backdrop ">
+                <div class="countdown">
+                    <h2>Starting In:</h2>
+                    <h1 id = "countdownNum">5</h1>
+                    
+                </div>            
+            </div>
+            <!-- END OF COUNTDOWN COMPONENT -->
+
+            <!-- IMPORTANT INPUT FOR TYPING -->
+            <input autocomplete="off" class = "game__input u-margin-t-medium" type="text" id="userInput" placeholder = "Type Here...">
+            <br/>
+            <button class="no-block btn btn--animate u-margin-t-medium btn--auto-width">New Race</button>
+            
+            <!-- END OF INPUT -->
         </section>
+
+
+
+    </div>
+    <!-- end of game__container -->
         <!-- end of MAIN MENU SECTION -->
 </body>
 </html>
