@@ -17,15 +17,16 @@ class Player{
         this.currentWord = 0;
         this.correctWords = 0;
         this.lettersWrong = 0;
-        this.timeElapsed = null;
+        this.timeElapsed = 0;
         this.hash = {};
-        this.races = [];
+        this.races = [];        
     }
 }
 export class Race{
-    constructor(accuracy, avgWpm, refToText){
+    constructor(accuracy, avgWpm, timeElapsed, refToText){
         this.accuracy = accuracy;
         this.avgWpm = avgWpm;
+        this.timeElapsed = timeElapsed;
         this.refToText = refToText;
     }
 }
@@ -47,16 +48,16 @@ function createSpanWord(word, letter){
 }
 //update the race for the user 
  export const injectWords = (text, pObj) => {
-
-    let insertedPhrase = [...text];
-    
+    let insertedPhrase = [...text];    
     //in game check of correct words
+    
+    console.log(pObj);
     if(pObj.correctWords > 0) {
         for(let i = 0; i < pObj.correctWords; i++) {
             let greenSpan = createSpanWord(insertedPhrase[i], "hoverGreen").join('');
             insertedPhrase[i] = greenSpan;
         }
-    }        
+    }            
     
     //injecting words into the dom as user types
     let spanObj = createSpanWord(insertedPhrase[pObj.currentWord], "t");
@@ -73,7 +74,8 @@ function createSpanWord(word, letter){
 }
 
 const createGame = async() => {
-    let response = await fetchText();    
+    let response = await fetchText();  
+    
     let parsedData = parseQuote(response.data.text);
     let totalCharacters = response.data.text.length;
     return new Game(parsedData, totalCharacters, null);

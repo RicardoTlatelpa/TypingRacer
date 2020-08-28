@@ -20,6 +20,7 @@ export const handleUserRaces = (user) => {
     }
 }
 const handleUserHeaderName = (user) => {
+    
     const header = elements.username;
     if(!user){
         header.innerHTML = "Welcome, Guest"

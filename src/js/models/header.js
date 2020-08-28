@@ -1,26 +1,35 @@
 const { headerView } = require('../views/headerView');
 const { elements, toggleDisplay } = require('../views/base');
 const { validateEmailLogin, validatePasswordLogin } = require('./validation');
-const { verifyUser, login, logout, headerRacers } = require('../helpers/promises');
-const { clearToken } = require('../helpers/clientStorage');
+const { verifyUser, login, logout } = require('../helpers/promises');
+
+
+let userState = 'guest';
 
 
 window.onload = async () => {   
     try {
-        let user = await verifyUser();   
-        console.log(user);                   
-        headerView(user.data);                    
+        let user = await verifyUser(); 
+        if(user.data){
+            console.log(user.data);
+            userState = user.data.username;
+            headerView(user.data);    
+        }else {
+            headerView(false);
+        }                              
     }catch(err){
         headerView(false);        
     }       
+}
+export const checkIfUserExists = () =>{
+    return userState;
 }
 
 //handle logout
 document.addEventListener('click', async(e) => {
     let element = e.target;
     if(element.id === "#logout"){        
-        try {
-            clearToken();
+        try {            
             await logout();                                
             location.reload();
         }catch(err){
@@ -90,8 +99,7 @@ elements.loginForm.addEventListener('submit', async (e) => {
             password: elements.loginPassword.value
         }            
         let response = await login(data);      
-        console.log(response);
-        
+        z
     }
     
 })

@@ -14,3 +14,9 @@ export const calculateAverageSpeed = (arrayOfRaces) => {
     }
     return Math.floor(sum/total);
 }
+
+export const calculateTypingSpeed = (total, time) => {
+    const timeToMinutes = time / 60;
+    const numOfChar = (total/5);
+    return Math.floor(numOfChar/timeToMinutes);
+}

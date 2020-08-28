@@ -124,14 +124,9 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
 </div>
 </div>       
 </ul>
-</div>
-
-  
-<!-- end of header -->
-    
-    <!-- activate when race starts -->
-
-    
+</div>  
+<!-- end of header -->    
+    <!-- activate when race starts -->    
         <section class="main-menu row">
             <svg class = "main-menu__svg" xmlns="http://www.w3.org/2000/svg" width="875.052" height="1085.378" viewBox="0 0 875.052 1085.378">
                 <g id="Group_17" data-name="Group 17" transform="translate(-4898.178 -3787.5)">
@@ -163,15 +158,12 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
                   <path id="Path_15" data-name="Path 15" d="M4975.736,4872.378h59.481" transform="translate(-2.444)" fill="none" stroke="#000" stroke-width="1"/>
                   <path id="Path_16" data-name="Path 16" d="M5410.473,4872.378h59.256" fill="none" stroke="#000" stroke-width="1"/>
                 </g>
-              </svg>
-              
-              
+              </svg>                            
             <h1 class = "u-margin-b-small header--medium"> Race your friends and become a faster typer!</h1>
             <div class="main-menu__options">
             <button class = "btn btn--menu" id = "friendGame">Play with your friends!</button> 
             <button class = "btn btn--menu" id = "findGame">Random Match</button>
-            <button class = "btn btn--menu" id = "practiceType">Practice</button>
-            
+            <button class = "btn btn--menu" id = "practiceType">Practice</button>            
             </div>
         </section>
     <div class="game__container no-block row__game">
@@ -181,7 +173,19 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
                 <h2 class = "inline u-margin-b-medium">Timer: <span class = "minute">3</span><span>:</span><span class="second">00</span></h2>                     
             </div>        
             <!-- END OF USER TIME -->            
+            <!-- racers UI -->
+            <div class="game__race">
+                <!-- USER RACER -->
+                <div class="racer__div">
+                    <div class="racer__progress">
 
+                    </div>                 
+                    <div class="racer__stats typing-speed">
+                        <p><span id = "racer--wpm">0</span> Wpm</p>
+                    </div> 
+                </div>
+            </div>
+            <!-- end of racers UI -->
             <!-- INJECTED SPAN OBJECTS  -->
             <div class = "u-margin-t-medium" id="key"></div>  
                           
@@ -190,7 +194,6 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
                 <div class="countdown">
                     <h2>Starting In:</h2>
                     <h1 id = "countdownNum">5</h1>
-                    
                 </div>            
             </div>
             <!-- END OF COUNTDOWN COMPONENT -->
@@ -203,9 +206,14 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
             <!-- END OF INPUT -->
         </section>
 
-
-
+    <div class="game__statistics u-margin-t-medium no-block">
+        <h2 class = "u-margin-b-small"> Game Stats:</h2> 
+        <p>Accuracy: <span id = "endOfRace--accuracy"></span> </p>
+        <p>WPM: <span id = "endOfRace--wpm"></span></p>
+        <p>Time: <span id = "endOfRace--time"></span></p>
     </div>
+    </div>
+
     <!-- end of game__container -->
         <!-- end of MAIN MENU SECTION -->
 </body>

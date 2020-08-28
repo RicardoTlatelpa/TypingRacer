@@ -28,8 +28,11 @@ export const elements = {
      gameInput: document.querySelector('#userInput'),
      gameSession: document.querySelector('.game'),
      gameContainer: document.querySelector('.game__container'),
-     countDownComponent: document.querySelector('.countdown-backdrop')
-
+     countDownComponent: document.querySelector('.countdown-backdrop'),
+     raceAccuracy: document.querySelector('#endOfRace--accuracy'),
+     raceWPM: document.querySelector('#endOfRace--wpm'),
+     raceEndTime: document.querySelector('#endOfRace--time'),
+     gameStats: document.querySelector('.game__statistics')
 }
 
 export const toggleHidden = (element) => {

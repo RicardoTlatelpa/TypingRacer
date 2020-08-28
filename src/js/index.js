@@ -3,53 +3,51 @@ TODO:
 []When inspecting element user can change the value and can hack game
 []Racing PROGRESS finish race figure
 []Finish Header
-[]Time component
+[x]Time component
 []Speed component
 []Security
 []Create new games
-[]End of race statistics
-[timers]
+[x]End of race statistics
+[x]timers
+[]End of timer
+[]continue gamemode
 */
 import axios from 'axios';
-import { calculateAccuracy } from './helpers/calculations';
-import { countdownBeforeGame } from './models/time';
+import { calculateAccuracy, calculateTypingSpeed } from './helpers/calculations';
+import { countdownBeforeGame, clearMainTimer} from './models/time';
+import { checkIfUserExists } from './models/header';
+import { showStatistics } from './views/statisticsView';
 const { startPractice, createPlayerObj, newGame, injectWords, Race } = require('../js/models/Game');
-const { elements } = require('./views/base');
-
+const { elements, toggleDisplay } = require('./views/base');
 require('../js/models/header');
 
 //Controller
-let online = false;
+let gamemode;
 let startTimer = false;
 //on a new race
+let races = []; //for guests with no accounts -- online games
 let currentGameData;
 let playerState;
-let races = []; //for guests with no accounts 
-let racerTimer;
-
-
-
 
 //practice mode
 elements.practiceButton.addEventListener('click', async() =>{
-    let practiceUser = createPlayerObj('guest');        
-    playerState = practiceUser // initalize player state;
+    gamemode = 'practice';
+    let practiceUser = checkIfUserExists();        
+    playerState = createPlayerObj(practiceUser) // initalize player state;    
     let newGameData = await startPractice();
     currentGameData = newGameData;
-    newGame(newGameData,practiceUser);    
-    countdownBeforeGame();
-                            
-    elements.gameInput.disabled = false;
+    newGame(newGameData,playerState);    
+    elements.gameInput.disabled = true;
+    countdownBeforeGame(playerState);        
     elements.gameInput.focus();
 });
 
 
-elements.gameInput.disabled = true;
-
 elements.gameInput.addEventListener('input', (e) => {    
     const wordQuote = elements.theDiv.querySelectorAll('span.t');
     const inputArray = e.target.value.split('');
-    let correct = true;
+    let correct = true;    
+    let turnInputRed = false;
     //update playerObject typing speed view
     wordQuote.forEach((word,index) => {
         const character = inputArray[index];
@@ -63,9 +61,9 @@ elements.gameInput.addEventListener('input', (e) => {
                 if(playerState.currentLetters > 0){
                     playerState.currentLetters--;
                 }
-            }
+            }            
         }
-        else if (character == word.innerText) {
+        else if (character == word.innerText) {            
             word.classList.remove('hoverCurrent');
             word.classList.add('hoverGreen');
             word.classList.remove('hoverRed');   
@@ -75,6 +73,7 @@ elements.gameInput.addEventListener('input', (e) => {
             }
         }
         else {
+            turnInputRed = true;
             word.classList.remove('hoverGreen');
             word.classList.remove('hoverCurrent');            
             word.classList.add('hoverRed'); 
@@ -86,18 +85,24 @@ elements.gameInput.addEventListener('input', (e) => {
             }
         }
     })
-
+    if(turnInputRed){
+        elements.gameInput.style = "background-color: #ff000052;"
+    }else {
+        elements.gameInput.style = "";
+    }
     if(correct){
         if(playerState.currentWord === currentGameData.text.length -1){
-            //create new race object and push it to guest             
+            //create new race object and push it to guest 
+            clearMainTimer();                                                         
             const accuracy = calculateAccuracy(playerState.lettersWrong, currentGameData.totalCharacters)
+            const Wpm = calculateTypingSpeed(playerState.currentLetters, playerState.timeElapsed);
             //pass it Average WPM and reference to text.
-            const finishedRaceData = new Race(accuracy, null, null);
-            if(online){
-                console.log('you are online!');//jk update the database 
-            }            
+            const finishedRaceData = new Race(accuracy,Wpm, playerState.timeElapsed , null);
+            console.log(finishedRaceData);                     
             elements.gameInput.disabled = true;
             e.target.value = '';
+            toggleDisplay(elements.gameStats);
+            showStatistics(finishedRaceData);            
         }else {
             e.target.value = '';
             playerState.currentWord++;
@@ -106,8 +111,6 @@ elements.gameInput.addEventListener('input', (e) => {
             injectWords(currentGameData.text, playerState);
         }
     }
-
-
 
 })
 
