@@ -32,7 +32,9 @@ export const elements = {
      raceAccuracy: document.querySelector('#endOfRace--accuracy'),
      raceWPM: document.querySelector('#endOfRace--wpm'),
      raceEndTime: document.querySelector('#endOfRace--time'),
-     gameStats: document.querySelector('.game__statistics')
+     gameStats: document.querySelector('.game__statistics'),
+     currentWpm: document.querySelector('#racer--wpm'),
+     currentRaceProgress: document.querySelector('.racer__progress')
 }
 
 export const toggleHidden = (element) => {

@@ -1,6 +1,7 @@
 import { countdownBeforeGame, secondHandler } from './time';
 import axios from 'axios';
 const { elements, toggleDisplay, toggleHidden } = require('../views/base');
+
 //initalizing game..
 
 class Game{

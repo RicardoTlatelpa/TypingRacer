@@ -20,3 +20,7 @@ export const calculateTypingSpeed = (total, time) => {
     const numOfChar = (total/5);
     return Math.floor(numOfChar/timeToMinutes);
 }
+
+export const calculatePercentageDone = (pObj, gObj) => {
+    return Math.floor((pObj.currentLetters/gObj.totalCharacters) * 100);
+}

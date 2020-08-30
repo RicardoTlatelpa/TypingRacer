@@ -167,6 +167,9 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
             </div>
         </section>
     <div class="game__container no-block row__game">
+
+
+        <!-- START OF GAME SECTION -->
         <section class="game">
             <!-- USER TIME -->
             <div class = "time">                   
@@ -178,7 +181,6 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
                 <!-- USER RACER -->
                 <div class="racer__div">
                     <div class="racer__progress">
-
                     </div>                 
                     <div class="racer__stats typing-speed">
                         <p><span id = "racer--wpm">0</span> Wpm</p>
@@ -187,8 +189,7 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
             </div>
             <!-- end of racers UI -->
             <!-- INJECTED SPAN OBJECTS  -->
-            <div class = "u-margin-t-medium" id="key"></div>  
-                          
+            <div class = "u-margin-t-medium" id="key"></div>                            
             <!-- COUNTDOWN COMPONENT -->
             <div class="countdown-backdrop ">
                 <div class="countdown">
@@ -197,15 +198,21 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
                 </div>            
             </div>
             <!-- END OF COUNTDOWN COMPONENT -->
-
             <!-- IMPORTANT INPUT FOR TYPING -->
             <input autocomplete="off" class = "game__input u-margin-t-medium" type="text" id="userInput" placeholder = "Type Here...">
             <br/>
-            <button class="no-block btn btn--animate u-margin-t-medium btn--auto-width">New Race</button>
-            
+            <button class="no-block btn btn--animate u-margin-t-medium btn--auto-width">New Race</button>            
             <!-- END OF INPUT -->
         </section>
+        <!-- END OF GAME SECTION -->
 
+        <!-- START OF GAME LINKS -->
+        <div class="game__links no-block">
+            
+        </div>
+        <!-- END OF GAME LINKS -->
+
+        <!-- START OF GAME STATISTICS  -->
     <div class="game__statistics u-margin-t-medium no-block">
         <h2 class = "u-margin-b-small"> Game Stats:</h2> 
         <p>Accuracy: <span id = "endOfRace--accuracy"></span> </p>
@@ -213,6 +220,9 @@ viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="pres
         <p>Time: <span id = "endOfRace--time"></span></p>
     </div>
     </div>
+        <!-- END OF GAME STATISTICS -->
+
+
 
     <!-- end of game__container -->
         <!-- end of MAIN MENU SECTION -->

@@ -1,22 +1,22 @@
 /*
 TODO:
-[]When inspecting element user can change the value and can hack game
-[]Racing PROGRESS finish race figure
-[]Finish Header
 [x]Time component
-[]Speed component
-[]Security
-[]Create new games
+[x]Speed component
+[x]Racing PROGRESS finish race figure
 [x]End of race statistics
 [x]timers
-[]End of timer
+[x]End of timer
 []continue gamemode
+[]Create new games
+[]Finish Header
+[]When inspecting element user can change the value and can hack game
+[]Security
 */
-import axios from 'axios';
 import { calculateAccuracy, calculateTypingSpeed } from './helpers/calculations';
 import { countdownBeforeGame, clearMainTimer} from './models/time';
 import { checkIfUserExists } from './models/header';
 import { showStatistics } from './views/statisticsView';
+const { updateRacerProgressView } = require('./views/racerView');
 const { startPractice, createPlayerObj, newGame, injectWords, Race } = require('../js/models/Game');
 const { elements, toggleDisplay } = require('./views/base');
 require('../js/models/header');
@@ -38,8 +38,8 @@ elements.practiceButton.addEventListener('click', async() =>{
     currentGameData = newGameData;
     newGame(newGameData,playerState);    
     elements.gameInput.disabled = true;
-    countdownBeforeGame(playerState);        
-    elements.gameInput.focus();
+    countdownBeforeGame(playerState, currentGameData);        
+    
 });
 
 
@@ -49,6 +49,7 @@ elements.gameInput.addEventListener('input', (e) => {
     let correct = true;    
     let turnInputRed = false;
     //update playerObject typing speed view
+    updateRacerProgressView(playerState, currentGameData);
     wordQuote.forEach((word,index) => {
         const character = inputArray[index];
         if(character == null){
